@@ -1,21 +1,14 @@
 const express = require('express');
-const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const compression = require('compression');
 const routes = require('./routes');
 const errorHandler = require('./middleware/errorHandler');
 const logger = require('./utils/logger');
-const { cors: corsConfig } = require('./config/env');
 
 const app = express();
 
 app.use(helmet());
-
-app.use(cors({
-  origin: corsConfig.origin || '*',
-  credentials: true
-}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -50,4 +43,3 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 module.exports = app;
-
