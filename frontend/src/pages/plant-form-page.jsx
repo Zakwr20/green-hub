@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
+import { Save } from "lucide-react";
 import { createPlant, getPlant, updatePlant } from "../api/plants";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -136,7 +137,7 @@ export default function PlantFormPage() {
 
   if (loading) {
     return (
-      <div className="mx-auto flex w-full max-w-2xl flex-col py-4">
+      <div className="mx-auto flex w-full max-w-2xl flex-col px-4 pb-24 pt-4 sm:px-6 lg:px-8">
         <div className="w-full space-y-4">
           <Skeleton className="h-5 w-1/2" />
           <div className="space-y-3">
@@ -153,7 +154,7 @@ export default function PlantFormPage() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col py-4">
+    <div className="mx-auto flex w-full max-w-2xl flex-col px-4 pb-24 pt-4 sm:px-6 lg:px-8">
       <section className="w-full space-y-5">
         <header className="space-y-1">
           <h1 className="font-heading text-base font-semibold">
@@ -337,8 +338,17 @@ export default function PlantFormPage() {
             </div>
 
             {error && <p className="text-sm text-destructive">{error}</p>}
-            <Button type="submit" disabled={saving}>
-              {saving ? "Menyimpan..." : "Simpan"}
+            <Button
+              type="submit"
+              disabled={saving}
+              className="h-10 px-4"
+            >
+              <span className="sm:hidden" aria-hidden="true">
+                <Save className="h-4 w-4" />
+              </span>
+              <span className="sr-only sm:not-sr-only">
+                {saving ? "Menyimpan..." : "Simpan"}
+              </span>
             </Button>
           </form>
         </div>

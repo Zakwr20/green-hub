@@ -65,7 +65,7 @@ export default function ProfilePage() {
   });
 
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col py-4">
+    <div className="mx-auto flex w-full max-w-2xl flex-col px-4 pb-24 pt-4 sm:px-6 lg:px-8">
       <section className="w-full space-y-5">
         <header className="space-y-1">
           <h1 className="font-heading text-base font-semibold">Profil</h1>

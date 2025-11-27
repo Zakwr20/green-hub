@@ -133,7 +133,7 @@ export default function PlantDetailPage() {
 
   if (loading) {
     return (
-      <div className="mx-auto flex w-full max-w-2xl flex-col py-4">
+      <div className="mx-auto flex w-full max-w-2xl flex-col px-4 pb-24 pt-4 sm:px-6 lg:px-8">
         <div className="w-full space-y-4">
           <Skeleton className="h-5 w-1/2" />
           <div className="mb-4 space-y-2">
@@ -166,7 +166,7 @@ export default function PlantDetailPage() {
 
   if (!plant) {
     return (
-      <div className="mx-auto w-full max-w-2xl py-6">
+      <div className="mx-auto w-full max-w-2xl px-4 pb-24 pt-4 sm:px-6 lg:px-8">
         <p className="text-sm text-destructive">Tanaman tidak ditemukan.</p>
         <Link
           to="/plants"
@@ -178,10 +178,24 @@ export default function PlantDetailPage() {
     );
   }
 
+  const primaryImage =
+    images.find((img) => img.is_primary) || images[0] || null;
+
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col py-4">
+    <div className="mx-auto flex w-full max-w-2xl flex-col px-4 pb-24 pt-4 sm:px-6 lg:px-8">
       <section className="w-full space-y-5">
-        {/* Hero / header */}
+        {/* Hero image */}
+        {primaryImage && primaryImage.image_url && (
+          <div className="overflow-hidden rounded-lg border border-border/50 bg-card">
+            <img
+              src={primaryImage.image_url}
+              alt={plant.plant_name}
+              className="h-48 w-full object-cover sm:h-56"
+            />
+          </div>
+        )}
+
+        {/* Header */}
         <header className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-1">
             <h1 className="font-heading text-base font-semibold">

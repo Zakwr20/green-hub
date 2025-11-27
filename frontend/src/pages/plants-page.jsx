@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { Leaf, AlertTriangle } from "lucide-react";
+import { Leaf, AlertTriangle, Search, Plus } from "lucide-react";
 import { listPlants, deletePlant } from "../api/plants";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -50,11 +50,19 @@ export default function PlantsPage() {
   };
 
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 py-4">
+    <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-4 pb-24 pt-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-lg font-semibold tracking-tight">Tanaman Saya</h2>
-        <Button type="button" onClick={() => navigate("/plants/new")} size="sm">
-          + Tambah Tanaman
+        <Button
+          type="button"
+          onClick={() => navigate("/plants/new")}
+          size="lg"
+          className="h-10 px-3"
+        >
+          <Plus className="h-4 w-4 sm:mr-1.5" />
+          <span className="hidden text-xs font-medium sm:inline">
+            Tambah Tanaman
+          </span>
         </Button>
       </div>
       <div className="flex flex-wrap items-center gap-2 text-[11px] text-muted-foreground">
@@ -90,9 +98,17 @@ export default function PlantsPage() {
           placeholder="Cari tanaman..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          className="h-10"
         />
-        <Button type="button" variant="outline" size="sm" onClick={loadPlants}>
-          Cari
+        <Button
+          type="button"
+          variant="outline"
+          size="lg"
+          className="h-10 px-3"
+          onClick={loadPlants}
+        >
+          <Search className="h-4 w-4 sm:mr-1.5" />
+          <span className="hidden text-xs font-medium sm:inline">Cari</span>
         </Button>
       </div>
       {loading && (
@@ -111,47 +127,69 @@ export default function PlantsPage() {
         <p className="text-sm text-muted-foreground">Belum ada tanaman.</p>
       )}
       <ul className="flex flex-col divide-y divide-border/20">
-        {plants.map((plant) => (
-          <li
-            key={plant.id}
-            className="flex items-start justify-between gap-3 py-3 text-sm"
-          >
-            <div className="space-y-1">
-              <Link
-                to={`/plants/${plant.id}`}
-                className="font-medium hover:underline"
-              >
-                {plant.plant_name}
-              </Link>
-              {plant.scientific_name && (
-                <div className="text-xs text-muted-foreground">
-                  {plant.scientific_name}
+        {plants.map((plant) => {
+          const images = plant.plant_images || [];
+          const primaryImage =
+            images.find((img) => img.is_primary) || images[0] || null;
+
+          return (
+            <li
+              key={plant.id}
+              className="flex items-center justify-between gap-3 py-3 text-sm"
+            >
+              <div className="flex flex-1 items-start gap-3">
+                {primaryImage && primaryImage.image_url && (
+                  <Link
+                    to={`/plants/${plant.id}`}
+                    className="mt-0.5 block h-12 w-12 flex-shrink-0 overflow-hidden rounded border border-border/50 bg-muted"
+                  >
+                    <img
+                      src={primaryImage.image_url}
+                      alt={plant.plant_name}
+                      className="h-full w-full object-cover"
+                    />
+                  </Link>
+                )}
+                <div className="space-y-1">
+                  <Link
+                    to={`/plants/${plant.id}`}
+                    className="font-medium hover:underline"
+                  >
+                    {plant.plant_name}
+                  </Link>
+                  {plant.scientific_name && (
+                    <div className="text-xs text-muted-foreground">
+                      {plant.scientific_name}
+                    </div>
+                  )}
+                  {plant.status && (
+                    <div className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-[2px] text-[11px] text-muted-foreground">
+                      <AlertTriangle className="h-3 w-3" />
+                      <span>{plant.status}</span>
+                    </div>
+                  )}
                 </div>
-              )}
-              {plant.status && (
-                <div className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-[2px] text-[11px] text-muted-foreground">
-                  <AlertTriangle className="h-3 w-3" />
-                  <span>{plant.status}</span>
-                </div>
-              )}
-            </div>
-            <div className="flex flex-col gap-1">
-              <Button
-                type="button"
-                onClick={() => navigate(`/plants/${plant.id}`)}
-              >
-                Detail
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => handleDelete(plant.id)}
-              >
-                Hapus
-              </Button>
-            </div>
-          </li>
-        ))}
+              </div>
+              <div className="flex flex-col gap-1">
+                <Button
+                  type="button"
+                  size="sm"
+                  onClick={() => navigate(`/plants/${plant.id}`)}
+                >
+                  Detail
+                </Button>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  onClick={() => handleDelete(plant.id)}
+                >
+                  Hapus
+                </Button>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

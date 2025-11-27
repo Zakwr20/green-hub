@@ -8,10 +8,13 @@ export default function MobileNav({
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 border-t border-transparent bg-transparent md:hidden"
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-30 md:hidden"
       aria-label="Aplikasi"
     >
-      <div className="mx-auto flex max-w-2xl items-center justify-between gap-6 px-6 py-3">
+      {/* Gradient bar that doesn't block content above */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-background/95 via-background/80 to-background/0" />
+
+      <div className="pointer-events-auto mx-auto mb-3 flex max-w-2xl items-center justify-between gap-6 px-6">
         <button
           type="button"
           className="flex h-10 w-10 items-center justify-center rounded bg-background/80 text-muted-foreground shadow-sm ring-1 ring-border/40 backdrop-blur transition-colors hover:text-foreground"

@@ -61,10 +61,10 @@ export default function DashboardPage() {
   const attention = (byStatus.sakit || 0) + (byStatus.mati || 0);
 
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col p-4 md:p-8">
-      <section className="w-full space-y-5">
+    <div className="mx-auto flex w-full max-w-2xl flex-col px-4 pb-24 pt-4 sm:px-6 lg:px-8">
+      <section className="w-full space-y-6">
         <header className="space-y-1">
-          <h1 className="font-heading text-base font-semibold">
+          <h1 className="font-heading text-base font-semibold tracking-tight">
             Hari Ini di Koleksi Anda
           </h1>
           <p className="text-xs text-muted-foreground">
@@ -73,7 +73,7 @@ export default function DashboardPage() {
           </p>
         </header>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           {loading && (
             <div className="space-y-4">
               <div className="flex gap-3">
@@ -92,34 +92,34 @@ export default function DashboardPage() {
             <>
               {/* Hero */}
               <div className="grid gap-3 sm:grid-cols-3">
-                <div className="flex flex-col gap-1 rounded bg-linear-to-br from-emerald-100 dark:from-emerald-200/30 via-emerald-50 dark:via-emerald-200/20 to-background px-3 py-2">
-                  <span className="text-[11px] text-emerald-900/70">
+                <div className="flex flex-col gap-1 rounded-lg bg-linear-to-br from-emerald-100/95 via-emerald-50/95 to-emerald-50/40 px-3 py-2 dark:from-emerald-400/15 dark:via-emerald-300/10 dark:to-emerald-200/5">
+                  <span className="text-[11px] text-emerald-900/75 dark:text-emerald-100/80">
                     Total tanaman
                   </span>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-semibold text-emerald-900">
+                    <span className="text-2xl font-semibold text-emerald-950 dark:text-emerald-50">
                       {total}
                     </span>
                     {flowering > 0 && (
-                      <span className="text-[11px] text-emerald-900/80">
+                      <span className="text-[11px] text-emerald-900/80 dark:text-emerald-100/80">
                         {flowering} berbunga
                       </span>
                     )}
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-1 rounded bg-muted/60 px-3 py-2">
+                <div className="flex flex-col gap-1 rounded-lg bg-muted/70 px-3 py-2 dark:bg-muted/60">
                   <span className="text-[11px] text-muted-foreground">
                     Sehat
                   </span>
-                  <span className="text-lg font-semibold">{alive}</span>
+                  <span className="text-xl font-semibold">{alive}</span>
                 </div>
 
-                <div className="flex flex-col gap-1 rounded bg-amber-100/80 px-3 py-2 text-amber-900">
-                  <span className="text-[11px] text-amber-800/90">
+                <div className="flex flex-col gap-1 rounded-lg bg-amber-100/85 px-3 py-2 text-amber-900 dark:bg-amber-500/15 dark:text-amber-100">
+                  <span className="text-[11px] text-amber-800/90 dark:text-amber-100/85">
                     Perlu perhatian
                   </span>
-                  <span className="text-lg font-semibold">{attention}</span>
+                  <span className="text-xl font-semibold">{attention}</span>
                 </div>
               </div>
 
@@ -291,14 +291,20 @@ export default function DashboardPage() {
             </>
           )}
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Button type="button" size="sm" onClick={() => navigate("/plants")}>
+          <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+            <Button
+              type="button"
+              size="sm"
+              className="flex-1"
+              onClick={() => navigate("/plants")}
+            >
               Lihat semua tanaman
             </Button>
             <Button
               type="button"
               size="sm"
               variant="outline"
+              className="flex-1"
               onClick={() => navigate("/plants/new")}
             >
               Tambah tanaman baru
