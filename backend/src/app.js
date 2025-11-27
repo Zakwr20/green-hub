@@ -1,14 +1,24 @@
 const express = require('express');
+const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const compression = require('compression');
 const routes = require('./routes');
 const errorHandler = require('./middleware/errorHandler');
 const logger = require('./utils/logger');
+const { cors: corsConfig } = require('./config/env');
 
 const app = express();
 
 app.use(helmet());
+
+// Enable CORS for frontend (needed for Vercel frontend → backend calls)
+const corsOptions = {
+  origin: corsConfig.origin || '*'
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
