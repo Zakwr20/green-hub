@@ -291,23 +291,23 @@ export default function DashboardPage() {
             </>
           )}
 
-          <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+          <div className="mt-4 flex gap-2">
             <Button
               type="button"
-              size="sm"
-              className="flex-1"
+              size="lg"
+              className="flex-1 h-10 min-w-0 px-2 text-xs sm:text-sm"
               onClick={() => navigate("/plants")}
             >
-              Lihat semua tanaman
+              Lihat semua
             </Button>
             <Button
               type="button"
-              size="sm"
+              size="lg"
               variant="outline"
-              className="flex-1"
+              className="flex-1 h-10 min-w-0 px-2 text-xs sm:text-sm"
               onClick={() => navigate("/plants/new")}
             >
-              Tambah tanaman baru
+              Tambah tanaman
             </Button>
           </div>
         </div>
