@@ -67,7 +67,7 @@ export default function PlantDetailPage() {
       const imagesRes = await getImagesByPlant(id);
       setImages(imagesRes.data?.images || imagesRes.data || []);
     } catch (err) {
-      setError(err.message || 'Gagal memuat detail tanaman');
+      setError(err.message || "Gagal memuat detail tanaman");
     } finally {
       setLoading(false);
     }
@@ -79,7 +79,7 @@ export default function PlantDetailPage() {
 
   const uploadForm = useFormik({
     initialValues: {
-      caption: '',
+      caption: "",
       is_primary: false,
     },
     onSubmit: async (values, helpers) => {
@@ -95,7 +95,7 @@ export default function PlantDetailPage() {
         setFiles([]);
         await loadData();
       } catch (err) {
-        alert(err.message || 'Gagal mengupload gambar');
+        alert(err.message || "Gagal mengupload gambar");
       } finally {
         setUploading(false);
       }
@@ -216,7 +216,7 @@ export default function PlantDetailPage() {
               {plant.status && (
                 <span
                   className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] ${getStatusClasses(
-                    plant.status,
+                    plant.status
                   )}`}
                 >
                   <AlertTriangle className="h-3 w-3" />
@@ -335,7 +335,7 @@ export default function PlantDetailPage() {
                   />
                 )}
                 {img.is_primary && (
-                  <span className="absolute left-1.5 top-1.5 inline-flex rounded-full bg-background/80 px-2 py-[2px] text-[10px] font-medium text-emerald-800 shadow-sm">
+                  <span className="absolute left-1.5 top-1.5 inline-flex rounded-full bg-background/80 px-2 py-0.5 text-[10px] font-medium text-emerald-800 shadow-sm">
                     Utama
                   </span>
                 )}
